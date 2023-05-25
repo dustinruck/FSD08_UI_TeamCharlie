@@ -51,6 +51,7 @@ body {
     -moz-border-radius: 20px;
     text-align: center;
     color: white;
+    /* z-index: 1; */
 }
 
 
@@ -161,6 +162,45 @@ input[type="button"] {
     margin-left: 20px;
 }
 
+
+/* added by Dustin below */
+.card {
+    width: 100px;
+    height: 160px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    display: inline-block;
+    position: relative;
+    background-color: white;
+    overflow: auto;
+}
+
+.card .top.left, .card .bottom.right {
+    position: absolute;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    /* z-index: 3; */
+}
+
+.card .top-left {
+    top: 0;
+    left: 0;
+}
+
+.card.red .top-left, .card.red .bottom-right {
+    color: red;
+}
+
+.card.black .top-left, .card.black .bottom-right {
+    color: black;
+}
+
+.card .hidden {
+    background-color: cornflowerblue;
+    color: cornflowerblue;
+}
 
 
 /* button:hover,
