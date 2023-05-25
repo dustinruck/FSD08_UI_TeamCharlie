@@ -1,3 +1,19 @@
+//Function dealcard 
+function dealCard(cards, runOnFinish, faceDown) {
+    var crd = deck.nextCard();
+    cards.count++;
+    if (faceDown)
+       cards[cards.count].setFaceDown();
+    else
+       cards[cards.count].setFaceUp();
+    cards[cards.count].setCard(crd);
+    new Effect.SlideDown(cards[cards.count].cardContainer, {
+       duration: 0.5,
+       queue: "end",
+       afterFinish: runOnFinish
+    });
+}
+
 // Function Cashout-lhb
 var player = {
     money: 100
@@ -15,7 +31,7 @@ function cashOut() {
 }
 
 // Add the event listener for the "Cash Out" button
-document.getElementById("cashout-button").addEventListener("click", cashOut);
+document.getElementById("cashOut").addEventListener("click", cashOut);
 
 // Function shuffle-lhb 
 function shuffleDeck() {
