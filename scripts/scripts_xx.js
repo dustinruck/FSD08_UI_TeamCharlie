@@ -1,10 +1,3 @@
-let deck = [];
-let playerHand = [];
-let dealerHand = [];
-let playerScore = 0;
-let dealerScore = 0;
-let playerBalance = 100;
-let betAmount = 0;
 
 function createDeck() {
     let cardNums = ["A", "K", "Q", "J", "10", "9", "8", "7",
