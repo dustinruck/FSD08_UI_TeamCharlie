@@ -204,9 +204,9 @@ input[type="button"] {
     color: black;
 }
 
-.card .hidden {
+.hidden {
     background-color: cornflowerblue;
-    color: cornflowerblue;
+    color: transparent;
 }
 
 
