@@ -31,7 +31,7 @@ function cashOut() {
 }
 
 // Add the event listener for the "Cash Out" button
-document.getElementById("cashOut").addEventListener("click", cashOut);
+document.getElementById("cashOutButton").addEventListener("click", cashOut);
 
 // Function shuffle-lhb 
 function shuffleDeck() {

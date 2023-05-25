@@ -122,21 +122,21 @@ input[type="button"] {
     float: right;
 }
 
-#hit {
+#hitButton {
     background-color: grey;
 }
 
-#stand {
+#standButton {
     margin-left: 100px;
 
 }
 
-#newGame {
+#newGameButton {
     background-color: #377D3F;
     margin-left: 100px;
 }
 
-#cashOut {
+#cashOutButton {
     background-color: yellow;
     margin-left: 100px;
 }
