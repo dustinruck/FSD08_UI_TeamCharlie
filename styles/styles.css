@@ -39,16 +39,6 @@ body {
     color: white;
 }
 
-/* .gif-container {
-    float: left;
-    margin-right: 20px;
-}
-
-.gif {
-    max-width: 100%;
-    height: auto;
-} */
-
 #bottom {
     width: 1200px;
     text-align: center;
@@ -133,12 +123,10 @@ input[type="button"] {
 }
 
 #hit {
-    background-color: #377D3F;
-
+    background-color: grey;
 }
 
 #stand {
-    background-color: #377D3F;
     margin-left: 100px;
 
 }
