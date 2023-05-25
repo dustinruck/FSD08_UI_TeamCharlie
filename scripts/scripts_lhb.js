@@ -22,23 +22,23 @@ document.getElementById("cashOutButton").addEventListener("click", cashOut);
 
 // Function hit-lhb
 function hit() {
- standButton.disabled = true;
- hitButton.disabled = true;
- dealCard(playerCards, function() {
-    var playerTotal = getTotal(playerCards);
+    standButton.disabled = true;
+    hitButton.disabled = true;
+    dealCard(playerHand);  
+    var playerTotal = getTotal(playerHand); 
     if (playerTotal > 21)
-       endGame(false, "YOU WENT OVER 21!");
-    else if (playerCards.count == 5)
-       endGame(true, "You took 5 cards without going over 21.");
+        endGame(false, "YOU WENT OVER 21!");
+    else if (playerHand.length == 5) 
+        endGame(true, "You took 5 cards without going over 21.");
     else if (playerTotal == 21)
-       dealersTurnAndEndGame();
-    else {
-       message.innerHTML = "You have " + playerTotal + ". Hit or Stand?";
-       hitButton.disabled = false;
-       standButton.disabled = false;
+        dealersTurnAndEndGame();
+    // else {
+    //     message.innerHTML = "You have " + playerTotal + ". Hit or Stand?";
+    //     hitButton.disabled = false;
+    //     standButton.disabled = false;
     }
- });
-}
+
+
 
 // Function stand-lhb
 function stand() {
@@ -67,4 +67,46 @@ function getTotal(hand) {
         total -= 10; // consider ace as 1 instead of 11
     }
     return total;
+}
+function endGame(win, why) {
+    if (win)
+        money += bet;
+    else
+        money -= bet;
+    message.innerHTML = (win ? "Congratulations! You win.  " : "Sorry! You lose.  ") + why + 
+          (money > 0 ? "<br>Click New Game to play again." : "<br>Looks like you've run out of money!");
+    standButton.disabled = true;
+    hitButton.disabled = true;
+    newGameButton.disabled = true;
+    gameInProgress = false;
+    if (dealerCards[2].faceDown) {
+      dealerCards[2].cardContainer.style.display = "none";
+      dealerCards[2].setFaceUp();
+      new Effect.SlideDown(dealerCards[2].cardContainer, { duration: 0.5, queue: "end" });
+    }
+    new Effect.Fade(moneyDisplay, {
+       duration: 0.5,
+       queue: "end",
+       afterFinish: function() {
+           moneyDisplay.innerHTML = "$" + money;
+           new Effect.Appear(moneyDisplay, {
+              duration: 0.5,
+              queue: "end",
+              afterFinish: function() {
+                  if (money <= 0) {
+                       betInput.value = "BUSTED";
+                       new Effect.Shake(moneyDisplay);
+                  }
+                  else {
+                      if (bet > money)
+                         betInput.value = money;
+                      standButton.disabled = true;
+                      hitButton.disabled = true;
+                      newGameButton.disabled = false;
+                      betInput.disabled = false;
+                  }
+              }
+           });
+       }
+    });
 }
