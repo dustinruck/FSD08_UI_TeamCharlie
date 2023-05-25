@@ -19,22 +19,6 @@ function cashOut() {
 // Add the event listener for the "Cash Out" button
 document.getElementById("cashOutButton").addEventListener("click", cashOut);
 
-// Function shuffle-lhb 
-function shuffleDeck() {
-    // Perform 1000 swaps to shuffle the deck
-    for (var i = 0; i < 1000; i++) {
-        // Pick two random locations in the deck
-        var location1 = Math.floor((Math.random() * deck.length));
-        var location2 = Math.floor((Math.random() * deck.length));
-
-        // Store the card at the first location
-        var tmp = deck[location1];
-
-        // Swap the two cards
-        deck[location1] = deck[location2];
-        deck[location2] = tmp;
-    }
-}
 
 // Function hit-lhb
 function hit() {
