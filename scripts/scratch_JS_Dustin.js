@@ -12,6 +12,7 @@ let betAmount = 0;
 
 // functions
 
+$(document).ready(function() {
 function createDeck() {
     let cardNums = ["A", "K", "Q", "J", "10", "9", "8", "7",
         "6", "5", "4", "3", "2"];
@@ -27,6 +28,7 @@ function createDeck() {
     }
     return deck;
 }
+});
 
 function shuffleDeck() {
     for (let i = 0; i < deck.length; i++) {
