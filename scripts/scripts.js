@@ -1,4 +1,4 @@
-// Function Cashout
+// Function Cashout-lhb
 var player = {
     money: 100
 };
@@ -17,7 +17,7 @@ function cashOut() {
 // Add the event listener for the "Cash Out" button
 document.getElementById("cashout-button").addEventListener("click", cashOut);
 
-// Function shuffle 
+// Function shuffle-lhb 
 function shuffleDeck() {
     // Perform 1000 swaps to shuffle the deck
     for (var i = 0; i < 1000; i++) {
@@ -34,7 +34,7 @@ function shuffleDeck() {
     }
 }
 
-// Function hit
+// Function hit-lhb
 function hit() {
  standButton.disabled = true;
  hitButton.disabled = true;
@@ -54,7 +54,7 @@ function hit() {
  });
 }
 
-// Function stand
+// Function stand-lhb
 function stand() {
 
  hitButton.disabled = true;
@@ -62,7 +62,7 @@ function stand() {
  dealersTurnAndEndGame();
 }
 
-// Function caculate total value of dealer and player cards
+// Function caculate total value of dealer and player cards-lhb
 function getTotal(hand) {
     var total = 0;
     var ace = false;
