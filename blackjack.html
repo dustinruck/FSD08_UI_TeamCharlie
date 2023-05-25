@@ -13,16 +13,29 @@
         <button id="showRulesButton">Rules</button>
         <img src="images/cheercartoon.gif" alt=" GIF" class="gif">
     </div>
+    <div id="rulesText">
+        <ul>
+            <li>Each person has 2 cards when new game starts and can have maximum 5 cards</li>
+            <li>Player has $100 to get start, can enter and change the bet during the game</li>
+            <li>1 corresponds to A, an ace which has a value of either 1 or 11, 2 through 10 correspond to those cards,
+                11 through 13 correspond to Jack, Queen, and King, which have a value of 10</li>
+            <li>Player loss the bet when he fails</li>
+            <li>Press "cash out" to quit the game at any time</li>
+        </ul>
+    </div>
 
     <div id="container">
         <section>
             <article>
                 <h2>Dealer</h2>
                 <!-- dealer's cards showed here -->
+                <div id="dealerCard"></div>
+
             </article>
             <article class="player">
                 <h2>Player</h2>
                 <!-- player's cards showed here -->
+                <div id="playerCard"></div>
             </article>
         </section>
     </div>
@@ -50,7 +63,13 @@
             </article>
         </section>
     </div>
-    <script src="scripts/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="scripts/scripts_xx.js"></script>
+    <script src="scripts/scratch_JS_Dustin.js"></script>
+
+
+
 </body>
 
 </html>
