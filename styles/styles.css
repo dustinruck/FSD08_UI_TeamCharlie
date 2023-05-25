@@ -1,7 +1,181 @@
-/* Hong Bo Li
-Dustin Ruck
-Xiaoxing Pan
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Open+Sans:wght@300&display=swap');
 
-BLACKJACK */
+body {
+    font-family: Lato;
+    background: #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px
+}
+
+.gif {
+    height: 100px;
+}
+
+.bet-container {
+    display: flex;
+    align-items: center;
+}
+
+#container {
+    min-height: 450px;
+    width: 1200px;
+    padding-bottom: 1px;
+    margin: px;
+    background: #377D3F;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    text-align: center;
+    color: white;
+}
+
+/* .gif-container {
+    float: left;
+    margin-right: 20px;
+}
+
+.gif {
+    max-width: 100%;
+    height: auto;
+} */
+
+#bottom {
+    width: 1200px;
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+}
+
+#balance {
+    padding-top: 7px;
+}
+
+section article {
+    width: 50%;
+    float: left;
+}
+
+#bottom section article {
+    width: 33%;
+}
+
+.bet-container {
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: 50px;
+    font-family: Gloria Hallelujah;
+}
+
+p {
+    padding: 0 20px;
+}
+
+img {
+    max-width: 360px;
+    margin: 0 auto;
+    display: block;
+}
+
+input {
+    display: block;
+    margin: 30px auto;
+    border-radius: 5px;
+    border: none;
+    width: 50px;
+    height: 30px;
+    font-size: 30px;
+    color: #000;
+    text-align: center;
+    outline: none;
+}
+
+.button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button,
+input[type="button"] {
+    text-transform: uppercase;
+    font-weight: bold;
+    display: block;
+    margin: 30px auto;
+    border-radius: 5px;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    outline: none;
+}
+
+#showRules {
+    background-color: #377D3F;
+    color: white;
+    margin-left: 160px;
+    float: right;
+}
+
+#hit {
+    background-color: #377D3F;
+
+}
+
+#stand {
+    background-color: #377D3F;
+    margin-left: 100px;
+
+}
+
+#newGame {
+    background-color: #377D3F;
+    margin-left: 100px;
+}
+
+#cashOut {
+    background-color: yellow;
+    margin-left: 100px;
+}
+
+#bet {
+    font-size: 15px;
+    margin: 0;
+    margin-left: 20px;
+}
 
 
+
+/* button:hover,
+input[type="button"]:hover {
+    background: #9B5300;
+    border-bottom-color: #666;
+}
+
+button:active,
+input[type="button"]:active {
+    position: relative;
+    top: 1px;
+}
+
+button:disabled,
+input[type="button"]:disabled {
+    background-color: #888;
+    color: #666;
+    opacity: .5;
+} */
