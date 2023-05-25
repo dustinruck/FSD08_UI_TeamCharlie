@@ -1,5 +1,7 @@
 // js for the blackjack.html file
 
+const { get } = require("jquery");
+
 
 class Card {
     constructor(value, suit) {
@@ -104,7 +106,10 @@ $(document).ready(function () {
         dealCard(playerHand, "playerCard");
         let playerTotal = getTotal(playerHand);
         if (playerTotal > 21)
-        $("#playerCard").append("<p>YOU BUSTED!</p>");
+        $("#playerCard").innerHTML("<p>YOU BUSTED!</p>");
+        if(playerHand.length == 5) {
+            $("#playerCard").innerHTML("<p>YOU WIN!</p>");
+        }
     });
 
     $("#standButton").click(function () {
