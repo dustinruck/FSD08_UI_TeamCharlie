@@ -104,8 +104,8 @@ $(document).ready(function () {
         dealCard(playerHand, "playerCard");
         let playerTotal = getTotal(playerHand);
         if (playerTotal > 21)
-            endGame(false, "YOU'RE OVER 21!");
-    })
+        $("#playerCard").append("<p>YOU BUSTED!</p>");
+    });
 
     $("#standButton").click(function () {
         $("#hitButton").prop("disabled", true);
