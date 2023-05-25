@@ -1,18 +1,4 @@
-//Function dealcard 
-function dealCard(cards, runOnFinish, faceDown) {
-    var crd = deck.nextCard();
-    cards.count++;
-    if (faceDown)
-       cards[cards.count].setFaceDown();
-    else
-       cards[cards.count].setFaceUp();
-    cards[cards.count].setCard(crd);
-    new Effect.SlideDown(cards[cards.count].cardContainer, {
-       duration: 0.5,
-       queue: "end",
-       afterFinish: runOnFinish
-    });
-}
+
 
 // Function Cashout-lhb
 var player = {
