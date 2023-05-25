@@ -51,7 +51,7 @@ function dealCard(hand, containerId) {
 }
 
 function displayCard(card, containerId) {
-    let cardElement = `<div class="card ${card.suit == '♠︎' || card.suit == '♣︎' ? 'black' : 'red'}">
+    let cardElement = `<div class="card ${card.suit == "♠︎" || card.suit == "♣︎" ? "black" : "red"}">
         <span class="top-left">${card.value}<br>${card.suit}</span>
         <span class="bottom-right">${card.value}<br>${card.suit}</span>
     </div>`;
@@ -63,56 +63,65 @@ function displayCard(card, containerId) {
 $(document).ready(function () {
 
     // click rules button to display and hide the rules
-    let rulesText = document.getElementById('rulesText');
-    document.getElementById('showRulesButton').addEventListener('click', function () {
-        if (rulesText.style.display === 'block') {
-            rulesText.style.display = 'none';
+    let rulesText = document.getElementById("rulesText");
+    document.getElementById("showRulesButton").addEventListener("click", function () {
+        if (rulesText.style.display === "block") {
+            rulesText.style.display = "none";
         } else {
-            rulesText.style.display = 'block';
+            rulesText.style.display = "block";
         }
     });
 
-    $('#newGameButton').click(function () {
+    $("#newGameButton").click(function () {
         // Clean up the table
-        $('#dealerCard').empty();
-        $('#playerCard').empty();
+        $("#dealerCard").empty();
+        $("#playerCard").empty();
 
         // Prepare for a new game
-        $('#newGameButton').prop('disabled', true);
-        $('#hitButton').prop('disabled', false);
-        $('#standButton').prop('disabled', false);
-        $('#cashOutButton').prop('disabled', false);
+        $("#newGameButton").prop("disabled", true);
+        $("#hitButton").prop("disabled", false);
+        $("#standButton").prop("disabled", false);
+        $("#cashOutButton").prop("disabled", false);
         createDeck();
         shuffleDeck();
         dealerHand = [];
         playerHand = [];
 
         // Deal the first two cards
-        dealCard(dealerHand, 'dealerCard');
-        dealCard(playerHand, 'playerCard');
+        dealCard(dealerHand, "dealerCard");
+        dealCard(playerHand, "playerCard");
 
-        // Hide dealer's card
-        $('#dealerCard .card').last().addClass('hidden');
+        // Hide dealer"s card
+        $("#dealerCard .card").last().addClass("hidden");
 
         // Deal the second two cards
-        dealCard(dealerHand, 'dealerCard');
-        dealCard(playerHand, 'playerCard');
+        dealCard(dealerHand, "dealerCard");
+        dealCard(playerHand, "playerCard");
     });
 
 
-    $('#hitButton').click(function () {
-        dealCard(playerHand, 'playerCard');
+    $("#hitButton").click(function () {
+        dealCard(playerHand, "playerCard");
         let playerTotal = getTotal(playerHand);
         if (playerTotal > 21)
-            endGame(false, "YOU'RE' OVER 21!");
+            endGame(false, "YOU'RE OVER 21!");
     })
 
-    $('#standButton').click(function () {
-        $('#hitButton').prop('disabled', true);
-        $('#standButton').prop('disabled', true);
-        $('#dealerCard .card').last().removeClass('hidden');
+    $("#standButton").click(function () {
+        $("#hitButton").prop("disabled", true);
+        $("#standButton").prop("disabled", true);
+        $("#dealerCard .card").last().removeClass("hidden");
         dealersTurn();
 
     })
 
-    
+    $("#cashOutButton").click(function () {
+        $("#newGameButton").prop("disabled", false);
+        $("#hitButton").prop("disabled", true);
+        $("#standButton").prop("disabled", true);
+        $("#cashOutButton").prop("disabled", true);
+        alert("You have cashed out $" + playerBalance + ". Thanks for playing!");
+        // Reset the player's money to zero
+        playerBalance = 0;
+    })
+});

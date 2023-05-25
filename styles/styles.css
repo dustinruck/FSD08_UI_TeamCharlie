@@ -185,8 +185,15 @@ input[type="button"] {
 }
 
 .card .top-left {
+    position: absolute ;
     top: 0;
-    left: 0;
+    left: 0;    
+}
+
+.card .bottom-right {
+    position: absolute ;
+    bottom: 0;
+    right: 0;
 }
 
 .card.red .top-left, .card.red .bottom-right {
