@@ -147,7 +147,7 @@ $(document).ready(function () {
         console.log(dealerScore);
 
         playerScore = getSum(playerHand[0].value, playerHand[1].value);
-        console.log(dealerScore);
+        console.log(playerScore);
 
 
 
