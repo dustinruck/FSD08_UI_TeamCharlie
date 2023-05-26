@@ -19,6 +19,16 @@ let indexDealer = 1;
 let indexPlayer = 1;
 let newCardValue;
 
+
+document.getElementById('verifyButton').addEventListener('click', function() {
+    // Hide the modal and show the main content when the button is clicked
+    document.getElementById('ageVerificationModal').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+});
+
+
+
+
 // functions
 
 
