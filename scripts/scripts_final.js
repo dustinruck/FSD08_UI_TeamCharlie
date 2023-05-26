@@ -19,7 +19,7 @@ let indexDealer = 1;
 let indexPlayer = 1;
 let newCardValue;
 
-
+// pops up a age verification when loading the page
 document.getElementById('verifyButton').addEventListener('click', function () {
     // Hide the modal and show the main content when the button is clicked
     document.getElementById('ageVerificationModal').style.display = 'none';
@@ -28,8 +28,10 @@ document.getElementById('verifyButton').addEventListener('click', function () {
 
 
 // functions
-
-
+/**
+ * Creates a new deck of cards by combining card numbers and suits
+ * {Array} The deck of cards
+ */
 function createDeck() {
     let cardNums = ["A", "K", "Q", "J", "10", "9", "8", "7",
         "6", "5", "4", "3", "2"];
@@ -44,6 +46,10 @@ function createDeck() {
     return deck;
 }
 
+/**
+ * Shuffles the deck of cards randomly
+ * @returns {Array} The shuffled deck of cards
+ */
 function shuffleDeck() {
     for (let i = 0; i < deck.length; i++) {
         let randomCard = Math.floor(Math.random() * deck.length);
@@ -54,6 +60,12 @@ function shuffleDeck() {
     return deck;
 }
 
+/**
+ * Deals a card from the deck to the specified hand and displays it on the UI
+ * @param {Array} hand - The hand to which the card is dealt
+ * @param {string} containerId - The ID of the container element where the card will be displayed
+ * @returns {Object} The dealt card
+ */
 function dealCard(hand, containerId) {
     let card = deck.pop();
     hand.push(card);
@@ -61,15 +73,24 @@ function dealCard(hand, containerId) {
     return card;
 }
 
+/**
+ * Displays a card on the UI
+ * @param {Object} card - The card object to be displayed
+ * @param {string} containerId - The ID of the container element where the card will be appended
+ */
 function displayCard(card, containerId) {
     let cardElement = `<div class="card ${card.suit == "♠︎" || card.suit == "♣︎" ? "black" : "red"}">
         <span class="top-left">${card.value}<br>${card.suit}</span>
         <span class="bottom-right">${card.value}<br>${card.suit}</span>
     </div>`;
-
     $(`#${containerId}`).append(cardElement);
 }
 
+/**
+ * Retrieves the numerical value of a card
+ * @param {string} card - The rank of the card (e.g., "A", "K", "Q", "J", "10", "9", etc.)
+ * @returns {number} - The numerical value of the card
+ */
 function getCardValue(card) {
     let cardValue = 0;
     if (card == "A") {
@@ -82,6 +103,12 @@ function getCardValue(card) {
     return cardValue;
 }
 
+/**
+ * Calculates the total value of two cards
+ * @param {(string|number)} card1 - The rank of the first card or the total value of the cards on the hand
+ * @param {string} card2 - The rank of the second card
+ * @returns {number} - The total value of the two cards
+ */
 function getTotal(card1, card2) {
     let sumCards = 0;
     let card1Value;
@@ -119,6 +146,11 @@ function updateBet() {
     betAmount = parseInt($('#bet').val());
 }
 
+/**
+ * Compares the scores of the player and the dealer and determines the outcome
+ * Updates the bet amount and player balance accordingly
+ * Resets the game after displaying the result
+ */
 function compare(playerScore, dealerScore) {
 
     updateBet();
@@ -203,7 +235,7 @@ $(document).ready(function () {
         // resetGame();
 
         // Prepare for a new game
-        
+
         $("#newGameButton").prop("disabled", true);
         $("#hitButton").prop("disabled", false);
         $("#standButton").prop("disabled", false);
@@ -251,6 +283,9 @@ $(document).ready(function () {
 
     });
 
+    /**
+    * Retrieves the value of a new card from the player's hand and increments the indexPlayer variable
+    */
     function getNewCardValue() {
         newCardValue = getCardValue(playerHand[(indexPlayer + 1)].value);
         indexPlayer++;
@@ -286,10 +321,9 @@ $(document).ready(function () {
         $('#standButton').prop('disabled', true);
         $('#newGameButton').prop('disabled', false);
         playerBalance = 100;
-
     });
-    // Reset the player's money to zero
-    playerBalance = 100;
+
+
     $('#balance').html("You have : $" + playerBalance);
     // New Game Button Event Listener
     $('#newGameButton').on('click', function () {
@@ -298,7 +332,12 @@ $(document).ready(function () {
         $('#newGameButton').prop('disabled', false);
     })
 
-
+    /**
+     * Controls the dealer's turn in the game
+     * Deals cards to the dealer until their score is less than or equal to 16 or the maximum number of cards has been reached
+     * Compares the player's and dealer's scores to determine the outcome
+     * Updates the player balance and displays it
+     */
     function dealersTurn() {
         while (dealerScore <= 16 && indexDealer < 4) {
             dealCardToDealer(indexDealer);
@@ -314,7 +353,11 @@ $(document).ready(function () {
         $('#balance').html("You have : $" + playerBalance);
     }
 
-
+    /**
+     * Deals a card to the dealer's hand.
+     * Calculates the value of the new card.
+     * Updates the dealer's score and the player's balance.
+     */
     function dealCardToDealer(indexDealer) {
         dealCard(dealerHand, "dealerCard");
 
