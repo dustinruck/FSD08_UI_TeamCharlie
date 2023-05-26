@@ -1,6 +1,6 @@
 // js for the blackjack.html file
 
-const { get } = require("jquery");
+// const { get } = require("jquery");
 
 
 class Card {
