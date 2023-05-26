@@ -212,7 +212,7 @@ $(document).ready(function () {
         dealCard(playerHand, "playerCard");
 
         // Hide dealer's card
-        $("#dealerCard .card").last().addClass("hidden");
+        $("#dealerCard .card").first().addClass("hidden");
 
         // Deal the second two cards
         dealCard(dealerHand, "dealerCard");
