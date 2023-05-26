@@ -203,6 +203,7 @@ $(document).ready(function () {
         // resetGame();
 
         // Prepare for a new game
+        
         $("#newGameButton").prop("disabled", true);
         $("#hitButton").prop("disabled", false);
         $("#standButton").prop("disabled", false);
@@ -286,7 +287,7 @@ $(document).ready(function () {
         $('#newGameButton').prop('disabled', false);
     });
     // Reset the player's money to zero
-    playerBalance = 0;
+    playerBalance = 100;
     $('#balance').html("You have : $" + playerBalance);
     // New Game Button Event Listener
     $('#newGameButton').on('click', function () {
