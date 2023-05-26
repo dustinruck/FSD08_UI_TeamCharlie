@@ -212,7 +212,7 @@ $(document).ready(function () {
         dealCard(dealerHand, "dealerCard");
         dealCard(playerHand, "playerCard");
 
-        Hide dealer's card
+        // Hide dealer's card
         $("#dealerCard .card").last().addClass("hidden");
 
         // Deal the second two cards
@@ -301,7 +301,7 @@ $(document).ready(function () {
     $("#standButton").click(function () {
         $("#hitButton").prop("disabled", true);
         $("#standButton").prop("disabled", true);
-        $("#dealerCard.card").last().removeClass("hidden");
+        $("#dealerCard .card").first().removeClass("hidden");
         dealersTurn();
 
     })

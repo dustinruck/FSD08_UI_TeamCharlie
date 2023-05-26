@@ -301,7 +301,7 @@ $(document).ready(function () {
     $("#standButton").click(function () {
         $("#hitButton").prop("disabled", true);
         $("#standButton").prop("disabled", true);
-        $("#dealerCard.card").last().removeClass("hidden");
+        $("#dealerCard .card").first().removeClass("hidden");
         dealersTurn();
 
     })
