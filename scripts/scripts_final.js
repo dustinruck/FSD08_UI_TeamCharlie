@@ -200,7 +200,7 @@ $(document).ready(function () {
         // Clean up the table
         $("#dealerCard").empty();
         $("#playerCard").empty();
-        resetGame();
+        // resetGame();
 
         // Prepare for a new game
         $("#newGameButton").prop("disabled", true);
@@ -292,7 +292,7 @@ $(document).ready(function () {
     $('#newGameButton').on('click', function () {
         $('#cashOutTexts').css('display', 'none');
         $('#cashOutButton').prop('disabled', false);
-        $('#newGameButton').prop('disabled', true);
+        $('#newGameButton').prop('disabled', false);
     })
 
 
