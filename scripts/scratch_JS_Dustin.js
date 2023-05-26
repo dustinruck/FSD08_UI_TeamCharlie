@@ -162,6 +162,10 @@ $(document).ready(function () {
         }
     });
 
+
+
+
+
     $("#newGameButton").click(function () {
         // Clean up the table
         $("#dealerCard").empty();
