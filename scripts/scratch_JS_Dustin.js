@@ -204,7 +204,6 @@ $(document).ready(function () {
         indexDealer = 1;
         indexPlayer = 1;
         $('#mesBox').html("Welcome to Blackjack!<br>Click 'New Game' to Begin.");
-        playerBalance = 100;
         $('#balance').html("You have : $" + playerBalance);
 
 

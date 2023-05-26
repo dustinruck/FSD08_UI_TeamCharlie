@@ -112,6 +112,9 @@ function updateBet() {
 }
 
 function compare(playerScore, dealerScore) {
+
+    updateBet();
+
     if (playerScore == 21) {
         if (dealerScore == 21) {
             $('#mesBox').html("DRAW! You and dealer both have Blackjack!<br>Click 'New Game' to Begin.");
@@ -203,7 +206,6 @@ $(document).ready(function () {
         indexDealer = 1;
         indexPlayer = 1;
         $('#mesBox').html("Welcome to Blackjack!<br>Click 'New Game' to Begin.");
-        playerBalance = 100;
         $('#balance').html("You have : $" + playerBalance);
 
 
@@ -223,6 +225,7 @@ $(document).ready(function () {
         playerScore = getTotal(playerHand[0].value, playerHand[1].value);
 
         // compare the first 2 cards value
+        updateBet();
         if (dealerScore > 21) {
             if (playerScore > 21) {
                 $("#playerCard").append("<p>YOU BUSTED!</p>");
@@ -340,7 +343,6 @@ $(document).ready(function () {
             compare(playerScore, dealerScore);
         }
         $('#balance').html("You have : $" + playerBalance);
-        resetGame();
     }
 
 
@@ -363,7 +365,6 @@ $(document).ready(function () {
         dealerScore += newCardValue;
 
         $('#balance').html("You have : $" + playerBalance);
-        resetGame();
     }
 });
 
