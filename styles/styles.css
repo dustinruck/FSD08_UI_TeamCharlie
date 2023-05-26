@@ -55,7 +55,7 @@ body {
 
 #container {
     min-height: 450px;
-    width: 1200px;
+    width: 1440px;
     padding-bottom: 1px;
     margin: px;
     background: -webkit-linear-gradient(to left, #377D3F, #1f5c1f);
@@ -180,8 +180,8 @@ input[type="button"] {
 
 /* added by Dustin below */
 .card {
-    width: 100px;
-    height: 160px;
+    width: 150px;
+    height: 240px;
     border: 1px solid black;
     border-radius: 5px;
     margin: 5px;
@@ -193,20 +193,23 @@ input[type="button"] {
 
 .card .top.left, .card .bottom.right {
     position: absolute;
-    padding: 5px;
-    font-size: 20px;
+    font-size: 40px;
     font-weight: bold;
     /* z-index: 3; */
 }
 
 .card .top-left {
     position: absolute ;
+    font-size: 30px;
+    padding: 20px;
     top: 0;
     left: 0;    
 }
 
 .card .bottom-right {
     position: absolute ;
+    font-size: 30px;
+    padding: 20px;
     bottom: 0;
     right: 0;
 }
@@ -221,6 +224,7 @@ input[type="button"] {
 
 .hidden {
     background-color: black;    
+    text-indent: -9999px;
 }
 
 

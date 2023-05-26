@@ -209,20 +209,24 @@ $(document).ready(function () {
             if (playerScore > 21) {
                 $("#playerCard").append("<p>YOU BUSTED!</p>");
                 $("#dealerCard").append("<p>DEALER BUSTED!</p>");
+                $("#dealerCard .card").removeClass("hidden");
                 $('#mesBox').html("DRAW! You and dealer both WENT OVER 21!<br>Click 'New Game' to Begin.");
             } else {
                 $("#playerCard").append("<p>YOU WIN!</p>");
                 $("#dealerCard").append("<p>DEALER BUSTED!</p>");
+                $("#dealerCard .card").removeClass("hidden");
                 $('#mesBox').html("Congratulations! You win! Dealer WENT OVER 21!<br>Click 'New Game' to Begin.");
                 playerBalance += $('#bet').val();
             }
         } else if (dealerScore < 21) {
             if (playerScore > 21) {
                 $("#playerCard").append("<p>YOU BUSTED!</p>");
+                $("#dealerCard .card").removeClass("hidden");
                 $('#mesBox').html("DRAW! You WENT OVER 21!<br>Click 'New Game' to Begin.");
                 playerBalance -= $('#bet').val();
             } else if (playerScore == 21) {
                 $("#playerCard").append("<p>BLACKJACK!</p>");
+                $("#dealerCard .card").removeClass("hidden");
                 $('#mesBox').html("Congratulations! You win! You have Blackjack!<br>Click 'New Game' to Begin.");
                 playerBalance += $('#bet').val();
             } else {
@@ -256,7 +260,7 @@ $(document).ready(function () {
     $("#standButton").click(function () {
         $("#hitButton").prop("disabled", true);
         $("#standButton").prop("disabled", true);
-        $("#dealerCard .card").last().removeClass("hidden");
+        $("#dealerCard .card").removeClass("hidden");
         dealersTurn();
 
     })
