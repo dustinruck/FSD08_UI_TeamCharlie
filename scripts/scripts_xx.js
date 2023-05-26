@@ -15,6 +15,7 @@ let playerScore = 0;
 let dealerScore = 0;
 let playerBalance = 100;
 let betAmount = 0;
+let index = 1;
 
 // functions
 
@@ -183,6 +184,8 @@ $(document).ready(function () {
         $('#bet').val("10");
 
 
+
+
         // Deal the first two cards
         dealCard(dealerHand, "dealerCard");
         dealCard(playerHand, "playerCard");
@@ -240,9 +243,11 @@ $(document).ready(function () {
     $("#hitButton").click(function () {
         dealCard(playerHand, "playerCard");
         playerScore = getSum(playerScore, playerHand[2].value);
-        if (playerScore > 21)
-            $("#playerCard").append("<p>YOU BUSTED!</p>");
-        compare(playerScore, dealerScore);
+        if (playerScore >= 21) {
+            compare(playerScore, dealerScore);
+            $('#balance').html("You have : $" + playerBalance);
+        }
+
     });
 
     $("#standButton").click(function () {
