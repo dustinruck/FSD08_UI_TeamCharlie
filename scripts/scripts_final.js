@@ -306,15 +306,23 @@ $(document).ready(function () {
 
     })
 
-    $("#cashOutButton").click(function () {
-        $("#newGameButton").prop("disabled", false);
-        $("#hitButton").prop("disabled", true);
-        $("#standButton").prop("disabled", true);
-        $("#cashOutButton").prop("disabled", true);
-        alert("You have cashed out $" + playerBalance + ". Thanks for playing!");
+        // Cash Out Button Event Listener
+    $('#cashOutButton').on('click', function() {
+        $('#cashOutTexts').text("You have cashed out $" + playerBalance + ". Thanks for playing!");
+        $('#cashOutTexts').css('display', 'block');
+        $('#cashOutButton').prop('disabled', true);
+        $('#hitButton').prop('disabled', true);
+        $('#standButton').prop('disabled', true);
+        $('#newGameButton').prop('disabled', false);
+    });
         // Reset the player's money to zero
         playerBalance = 0;
         $('#balance').html("You have : $" + playerBalance);
+    // New Game Button Event Listener
+    $('#newGameButton').on('click', function() {
+        $('#cashOutTexts').css('display', 'none');
+        $('#cashOutButton').prop('disabled', false);
+        $('#newGameButton').prop('disabled', true);
     })
 
 
