@@ -205,8 +205,7 @@ input[type="button"] {
 }
 
 .hidden {
-    background-color: cornflowerblue;
-    color: transparent;
+    background-color: black;    
 }
 
 

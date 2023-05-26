@@ -95,6 +95,7 @@ $(document).ready(function () {
 
         // Hide dealer"s card
         $("#dealerCard .card").last().addClass("hidden");
+        $("#dealerCard .top-left .bottom-right").first().addClass("hidden");
 
         // Deal the second two cards
         dealCard(dealerHand, "dealerCard");
