@@ -190,8 +190,8 @@ $(document).ready(function () {
 
     $("#newGameButton").click(function () {
         // Clean up the table
-        // $("#dealerCard").empty();
-        // $("#playerCard").empty();
+        $("#dealerCard").empty();
+        $("#playerCard").empty();
         resetGame();
 
         // Prepare for a new game
