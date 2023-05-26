@@ -285,6 +285,8 @@ $(document).ready(function () {
         $('#hitButton').prop('disabled', true);
         $('#standButton').prop('disabled', true);
         $('#newGameButton').prop('disabled', false);
+        playerBalance = 100;
+
     });
     // Reset the player's money to zero
     playerBalance = 100;
