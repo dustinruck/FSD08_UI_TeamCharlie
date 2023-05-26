@@ -1,6 +1,4 @@
 // js for the blackjack.html file
-
-
 class Card {
     constructor(value, suit) {
         this.value = value;
@@ -25,7 +23,6 @@ document.getElementById('verifyButton').addEventListener('click', function () {
     document.getElementById('ageVerificationModal').style.display = 'none';
     document.getElementById('mainContent').style.display = 'block';
 });
-
 
 // functions
 /**
@@ -210,10 +207,81 @@ function compare(playerScore, dealerScore) {
     }
 }
 
+/**
+    * Retrieves the value of a new card from the player's hand and increments the indexPlayer variable
+    */
+function getNewCardValue() {
+    newCardValue = getCardValue(playerHand[(indexPlayer + 1)].value);
+    indexPlayer++;
+}
+
+/**
+     * Controls the dealer's turn in the game
+     * Deals cards to the dealer until their score is less than or equal to 16 or the maximum number of cards has been reached
+     * Compares the player's and dealer's scores to determine the outcome
+     * Updates the player balance and displays it
+     */
+function dealersTurn() {
+    while (dealerScore <= 16 && indexDealer < 4) {
+        dealCardToDealer(indexDealer);
+        indexDealer++;
+    }
+
+    if (dealerScore > 21) {
+        $('#mesBox').html("Congratulations! You win! <br>Dealer WENT OVER 21!<br>Click 'New Game' to Begin.");
+        playerBalance += parseInt($('#bet').val());
+    } else {
+        compare(playerScore, dealerScore);
+    }
+    $('#balance').html("You have : $" + playerBalance);
+}
+
+/**
+ * Deals a card to the dealer's hand.
+ * Calculates the value of the new card.
+ * Updates the dealer's score and the player's balance.
+ */
+function dealCardToDealer(indexDealer) {
+    dealCard(dealerHand, "dealerCard");
+
+    let newCardValue = getCardValue(dealerHand[(indexDealer + 1)].value);
+    // alert(newCardValue);
+    if (newCardValue === 1) {
+        if (dealerScore < 10) {
+            newCardValue = 11;
+        } else if (dealerScore === 10) {
+            $('#mesBox').html("Sorry! You lose. Dealer have Blackjack!<br>Click 'New Game' to Begin.");
+            playerBalance -= $('#bet').val();
+
+        } else {
+            newCardValue = 1;
+        }
+    }
+    dealerScore += newCardValue;
+
+    $('#balance').html("You have : $" + playerBalance);
+}
+
 function resetGame() {
     $("#newGameButton").prop("disabled", false);
     $("#hitButton").prop("disabled", true);
     $("#standButton").prop("disabled", true);
+}
+
+/**
+ * gameover after run out of the balance or cash out
+ */
+function endGame() {
+    $("#newGameButton").prop("disabled", false);
+    $("#hitButton").prop("disabled", true);
+    $("#standButton").prop("disabled", true);
+    $("#cashOutButton").prop("disabled", true);
+    playerBalance = 0;
+    $('#balance').html("You have : $" + playerBalance);
+    $('#mesBox').html("Welcome to Blackjack!<br>Click 'New Game' to Begin.");
+    $('#bet').val("10");
+    $("#dealerCard").empty();
+    $("#playerCard").empty();
 }
 
 $(document).ready(function () {
@@ -228,28 +296,26 @@ $(document).ready(function () {
         }
     });
 
+    // newGameButton clicked to start the game
     $("#newGameButton").click(function () {
         // Clean up the table
         $("#dealerCard").empty();
         $("#playerCard").empty();
-        // resetGame();
 
-        // Prepare for a new game
-
-        $("#newGameButton").prop("disabled", true);
+        // Prepare for a new game:
+        $("#newGameButton").prop("disabled", true); // active the hit stand and cashout button
         $("#hitButton").prop("disabled", false);
         $("#standButton").prop("disabled", false);
         $("#cashOutButton").prop("disabled", false);
-        createDeck();
+        createDeck(); // create and shuffle the deck
         shuffleDeck();
-        dealerHand = [];
+        dealerHand = []; // clear the cards in hand
         playerHand = [];
-        $('#bet').val("10");
+        $('#bet').val("10"); // reset the bet to 10
         indexDealer = 1;
         indexPlayer = 1;
-        $('#mesBox').html("Welcome to Blackjack!<br>Click 'New Game' to Begin.");
-        $('#balance').html("You have : $" + playerBalance);
-
+        $('#mesBox').html("Welcome to Blackjack!<br>Click 'New Game' to Begin."); // reset the message box
+        $('#balance').html("You have : $" + playerBalance); // update the balance
 
         // Deal the first two cards
         dealCard(dealerHand, "dealerCard");
@@ -266,7 +332,7 @@ $(document).ready(function () {
         dealerScore = getTotal(dealerHand[0].value, dealerHand[1].value);
         playerScore = getTotal(playerHand[0].value, playerHand[1].value);
 
-        // compare the first 2 cards value
+        // compare the first 2 cards value, let the player to choose if no one is 21 or bust
         if (dealerScore < 21 && playerScore < 21) {
             // ask the player to choose
             $('#mesBox').html("You have " + playerScore + ". Hit or Stand?");
@@ -280,17 +346,28 @@ $(document).ready(function () {
             resetGame();
         }
 
+        if (playerBalance <= 0) {
+            alert("You've run out of money!!! See you next time!!");
+            endGame();
+        }
+
 
     });
 
-    /**
-    * Retrieves the value of a new card from the player's hand and increments the indexPlayer variable
-    */
-    function getNewCardValue() {
-        newCardValue = getCardValue(playerHand[(indexPlayer + 1)].value);
-        indexPlayer++;
-    }
+    // event listener for bet input change
+    $('#bet').on('input', function () {
+        // Get the current value of the input
+        betAmount = parseInt($(this).val());
+        if (betAmount < playerBalance) {
+            alert("You don't have enough money, please change your bet!");
+            //$('#bet').val("10");
+        } else if (isNaN(betAmount) || betAmount <= 0) {
+            alert("Invalid bet!");
+            //$('#bet').val("10");
+        }
+    });
 
+    // event listener for hitButton
     $("#hitButton").click(function () {
         dealCard(playerHand, "playerCard");
         getNewCardValue();
@@ -304,6 +381,7 @@ $(document).ready(function () {
         $('#balance').html("You have : $" + playerBalance);
     });
 
+    // event listener for standButton
     $("#standButton").click(function () {
         $("#hitButton").prop("disabled", true);
         $("#standButton").prop("disabled", true);
@@ -312,7 +390,7 @@ $(document).ready(function () {
 
     })
 
-    // Cash Out Button Event Listener
+    // event listener for cashoutButton
     $('#cashOutButton').on('click', function () {
         $('#cashOutTexts').text("You have cashed out $" + playerBalance + ". Thanks for playing!");
         $('#cashOutTexts').css('display', 'block');
@@ -323,8 +401,6 @@ $(document).ready(function () {
         playerBalance = 100;
     });
 
-
-    $('#balance').html("You have : $" + playerBalance);
     // New Game Button Event Listener
     $('#newGameButton').on('click', function () {
         $('#cashOutTexts').css('display', 'none');
@@ -332,54 +408,9 @@ $(document).ready(function () {
         $('#newGameButton').prop('disabled', false);
     })
 
-    /**
-     * Controls the dealer's turn in the game
-     * Deals cards to the dealer until their score is less than or equal to 16 or the maximum number of cards has been reached
-     * Compares the player's and dealer's scores to determine the outcome
-     * Updates the player balance and displays it
-     */
-    function dealersTurn() {
-        while (dealerScore <= 16 && indexDealer < 4) {
-            dealCardToDealer(indexDealer);
-            indexDealer++;
-        }
 
-        if (dealerScore > 21) {
-            $('#mesBox').html("Congratulations! You win! <br>Dealer WENT OVER 21!<br>Click 'New Game' to Begin.");
-            playerBalance += parseInt($('#bet').val());
-        } else {
-            compare(playerScore, dealerScore);
-        }
-        $('#balance').html("You have : $" + playerBalance);
-    }
-
-    /**
-     * Deals a card to the dealer's hand.
-     * Calculates the value of the new card.
-     * Updates the dealer's score and the player's balance.
-     */
-    function dealCardToDealer(indexDealer) {
-        dealCard(dealerHand, "dealerCard");
-
-        let newCardValue = getCardValue(dealerHand[(indexDealer + 1)].value);
-        // alert(newCardValue);
-        if (newCardValue === 1) {
-            if (dealerScore < 10) {
-                newCardValue = 11;
-            } else if (dealerScore === 10) {
-                $('#mesBox').html("Sorry! You lose. Dealer have Blackjack!<br>Click 'New Game' to Begin.");
-                playerBalance -= $('#bet').val();
-
-            } else {
-                newCardValue = 1;
-            }
-        }
-        dealerScore += newCardValue;
-
-        $('#balance').html("You have : $" + playerBalance);
-    }
 });
 
 // problems
-// balance reset to 100 when newgame button is clicked!!!
-// when change bet, balance still calculate 10
+// Bet button is only reading 10 and reset to 10
+// Ace 1 or 11 logic not always working
