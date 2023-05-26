@@ -36,7 +36,22 @@ body {
     padding: 10px;
 }
 
+#cashOutTexts {
+    display: none;
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffd600;
+    padding: 20px;
+    z-index: 9999;
+    font-size: 25px;
+    border-radius: 10px;
+}
 
+#cashOutTexts li {
+    padding: 10px;
+}
 
 #container {
     min-height: 450px;
