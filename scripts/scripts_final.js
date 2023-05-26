@@ -265,6 +265,8 @@ $(document).ready(function () {
                 resetGame();
             } else {
                 $('#mesBox').html("Sorry! You lose. Dealer have Blackjack!<br>Click 'New Game' to Begin.");
+                $("#dealerCard").append("<p>BLACKJACK!</p>");
+                $("#dealerCard .card").first().removeClass("hidden");
                 updateBet();
                 playerBalance -= betAmount;
                 $('#balance').html("You have : $" + playerBalance);
