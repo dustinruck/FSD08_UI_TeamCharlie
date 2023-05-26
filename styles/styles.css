@@ -78,6 +78,7 @@ body {
 
 #container {
     min-height: 450px;
+    height: auto;
     width: 1440px;
     padding-bottom: 1px;
     margin: px;
