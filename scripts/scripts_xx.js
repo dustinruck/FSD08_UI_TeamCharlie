@@ -18,6 +18,7 @@ let betAmount = 0;
 let indexDealer = 1;
 let indexPlayer = 1;
 
+
 // functions
 
 
@@ -83,7 +84,7 @@ function getTotal(card1, card2) {
             sumCards = 11 + card2Value;
         }
         else if (card1Value !== 1 && card2Value === 1) {
-            sumCards = 11 + card2Value;
+            sumCards = 11 + card1Value;
         }
         else if (card1Value !== 1 && card2Value !== 1) {
             sumCards = card1Value + card2Value;
@@ -191,6 +192,7 @@ $(document).ready(function () {
         playerHand = [];
         $('#bet').val("10");
         indexDealer = 1;
+        indexDealer = 1;
 
 
         // Deal the first two cards
@@ -250,22 +252,20 @@ $(document).ready(function () {
                 playerBalance -= $('#bet').val();
                 resetGame();
             }
-
         }
-
 
     });
 
-    $("#hitButton").click(function () {
 
+
+
+    $("#hitButton").click(function () {
         dealCard(playerHand, "playerCard");
-        let index = indexPlayer + 1;
-        let newCard = playerHand[index].value;
-        let newCardValue = getCardValue(newCard);
+        let newCardValue = getCardValue(playerHand[(playerHand.length - 1)].value);
         playerScore = getTotal(playerScore, newCardValue);
         indexPlayer++;
 
-
+        console.log(playerHand);
         console.log(playerScore);
         if (playerScore >= 21) {
             compare(playerScore, dealerScore);
@@ -276,31 +276,29 @@ $(document).ready(function () {
 
     });
 
+
+
+
+
+
     $("#standButton").click(function () {
         $("#hitButton").prop("disabled", true);
         $("#standButton").prop("disabled", true);
-        $("#dealerCard .card").removeClass("hidden");
+        $("#dealerCard .card").last().removeClass("hidden");
         dealersTurn();
 
     })
 
-    // Cash Out Button Event Listener
-$('#cashOutButton').on('click', function() {
-    $('#cashOutTexts').text("You have cashed out $" + playerBalance + ". Thanks for playing!");
-    $('#cashOutTexts').css('display', 'block');
-    $('#cashOutButton').prop('disabled', true);
-    $('#hitButton').prop('disabled', true);
-    $('#standButton').prop('disabled', true);
-    $('#newGameButton').prop('disabled', false);
-});
-    // Reset the player's money to zero
-    playerBalance = 0;
-// New Game Button Event Listener
-$('#newGameButton').on('click', function() {
-    $('#cashOutTexts').css('display', 'none');
-    $('#cashOutButton').prop('disabled', false);
-    $('#newGameButton').prop('disabled', true);
-});
+    $("#cashOutButton").click(function () {
+        $("#newGameButton").prop("disabled", false);
+        $("#hitButton").prop("disabled", true);
+        $("#standButton").prop("disabled", true);
+        $("#cashOutButton").prop("disabled", true);
+        alert("You have cashed out $" + playerBalance + ". Thanks for playing!");
+        // Reset the player's money to zero
+        playerBalance = 100;
+        $('#balance').html("You have : $" + playerBalance);
+    })
 
 
     function dealersTurn() {
