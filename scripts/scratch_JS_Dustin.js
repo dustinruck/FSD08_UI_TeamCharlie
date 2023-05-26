@@ -8,14 +8,16 @@ class Card {
     }
 }
 
-// let playerHand = [];
-// let dealerHand = [];
+let deck = [];
+let playerHand = [];
+let dealerHand = [];
 let playerScore = 0;
 let dealerScore = 0;
 let playerBalance = 100;
 let betAmount = 0;
-// let indexDealer = 1;
-// let indexPlayer = 1;
+let indexDealer = 1;
+let indexPlayer = 1;
+let newCardValue;
 
 // functions
 
@@ -24,7 +26,6 @@ function createDeck() {
     let cardNums = ["A", "K", "Q", "J", "10", "9", "8", "7",
         "6", "5", "4", "3", "2"];
     let suits = ["♥︎", "♦︎", "♠︎", "♣︎"];
-    let deck = [];
     for (let i = 0; i < cardNums.length; i++) {
         for (let j = 0; j < suits.length; j++) {
             let card = new Card(cardNums[i], suits[j]);
@@ -45,7 +46,7 @@ function shuffleDeck() {
     return deck;
 }
 
-function dealCard(deck, hand, containerId) {
+function dealCard(hand, containerId) {
     let card = deck.pop();
     hand.push(card);
     displayCard(card, containerId);
@@ -73,21 +74,42 @@ function getCardValue(card) {
     return cardValue;
 }
 
-function getTotal(hand) {
-    let hasAce = false;
+function getTotal(card1, card2) {
     let sumCards = 0;
-    for(let i = 0; i < hand.length; i++) {
-        sumCards += getCardValue(hand[i].value);
-        if(hand[i].value == "A") {
-            hasAce = true;
+    let card1Value;
+    let card2Value = getCardValue(card2);
+    if (isNaN(card1)) {
+        card1Value = getCardValue(card1);
+        if (card1Value === 1 && card2Value !== 1) {
+            sumCards = 11 + card2Value;
         }
-    }
-    if(hasAce && sumCards <= 11) {
-        sumCards += 10;
+        else if (card1Value !== 1 && card2Value === 1) {
+            sumCards = 11 + card1Value;
+        }
+        else if (card1Value !== 1 && card2Value !== 1) {
+            sumCards = card1Value + card2Value;
+        }
+        else {
+            sumCards = 21;
+        }
+    } else {
+        card1Value = parseInt(card1);
+        if (card2Value === 1) {
+            if (card1Value <= 10) {
+                sumCards = 11 + card1Value;
+            } else {
+                sumCards = 1 + card1Value;
+            }
+        } else {
+            sumCards = card1Value + card2Value;
+        }
     }
     return sumCards;
 }
 
+function updateBet() {
+    betAmount = parseInt($('#bet').val());
+}
 
 function compare(playerScore, dealerScore) {
     if (playerScore == 21) {
@@ -96,34 +118,39 @@ function compare(playerScore, dealerScore) {
             resetGame();
         }
         else {
-            $('#mesBox').html("Congratulations! You win! You have Blackjack!<br>Click 'New Game' to Begin.");
-            playerBalance += parseInt($('#bet').val());
+            $('#mesBox').html("Congratulations! You win!<br>You have Blackjack!<br>Click 'New Game' to Begin.");
+            updateBet();
+            playerBalance += betAmount;
             resetGame();
         }
     } else if (playerScore < 21) {
         if (dealerScore == 21) {
             $('#mesBox').html("Sorry! You lose. Dealer have Blackjack!<br>Click 'New Game' to Begin.");
-            playerBalance -= parseInt($('#bet').val());
+            updateBet();
+            playerBalance -= betAmount;
             resetGame();
         }
         else if (dealerScore > 21) {
-            $('#mesBox').html("Congratulations! You win! DEALER WENT OVER 21!!<br>Click 'New Game' to Begin.");
-            playerBalance += parseInt($('#bet').val());
+            $('#mesBox').html("Congratulations! You win!<br>DEALER WENT OVER 21!!<br>Click 'New Game' to Begin.");
+            updateBet();
+            playerBalance += betAmount;
             resetGame();
         }
         else {
             if (playerScore < dealerScore) {
                 $('#mesBox').html("Sorry! You lose. You have " + playerScore + ". Dealer has " + dealerScore + "." + "<br> Click 'New Game' to Begin.")
-                playerBalance -= parseInt($('#bet').val());
+                updateBet();
+                playerBalance -= betAmount;
                 resetGame();
             }
-            else if (playerScore = dealerScore) {
+            else if (playerScore === dealerScore) {
                 $('#mesBox').html("DRAW! You and dealer both have " + playerScore + "<br>Click 'New Game' to Begin.");
                 resetGame();
             }
             else {
-                    $('#mesBox').html("Congratulations! You win! You have " + playerScore + ". Dealer has " + dealerScore + "." + "<br> Click 'New Game' to Begin.")
-                    playerBalance += betAmount; // Update the balance
+                $('#mesBox').html("Congratulations! You win! <br> You have " + playerScore + ". Dealer has " + dealerScore + "." + "<br> Click 'New Game' to Begin.")
+                updateBet();
+                playerBalance += betAmount;
                 resetGame();
             }
         }
@@ -133,7 +160,8 @@ function compare(playerScore, dealerScore) {
             resetGame();
         } else {
             $('#mesBox').html("Sorry! You lose. YOU WENT OVER 21!!<br>Click 'New Game' to Begin.");
-            playerBalance -= betAmount; // Update the balance
+            updateBet();
+            playerBalance -= betAmount;
             resetGame();
         }
     }
@@ -148,10 +176,6 @@ function resetGame() {
 
 $(document).ready(function () {
 
-    let deck = [];
-    let playerHand = [];
-    let dealerHand = [];
-
     // click rules button to display and hide the rules
     let rulesText = document.getElementById("rulesText");
     document.getElementById("showRulesButton").addEventListener("click", function () {
@@ -161,10 +185,6 @@ $(document).ready(function () {
             rulesText.style.display = "block";
         }
     });
-
-
-
-
 
     $("#newGameButton").click(function () {
         // Clean up the table
@@ -180,15 +200,19 @@ $(document).ready(function () {
         shuffleDeck();
         dealerHand = [];
         playerHand = [];
-        betAmount = parseInt($('#bet').val());
+        $('#bet').val("10");
         indexDealer = 1;
+        indexPlayer = 1;
+        $('#mesBox').html("Welcome to Blackjack!<br>Click 'New Game' to Begin.");
+        playerBalance = 100;
+        $('#balance').html("You have : $" + playerBalance);
 
 
         // Deal the first two cards
         dealCard(dealerHand, "dealerCard");
         dealCard(playerHand, "playerCard");
 
-        // Hide dealer's card
+        Hide dealer's card
         $("#dealerCard .card").last().addClass("hidden");
 
         // Deal the second two cards
@@ -196,9 +220,8 @@ $(document).ready(function () {
         dealCard(playerHand, "playerCard");
 
         //update the score
-        dealerScore = getTotal(dealerHand);
-        playerScore = getTotal(playerHand);
-
+        dealerScore = getTotal(dealerHand[0].value, dealerHand[1].value);
+        playerScore = getTotal(playerHand[0].value, playerHand[1].value);
 
         // compare the first 2 cards value
         if (dealerScore > 21) {
@@ -210,20 +233,26 @@ $(document).ready(function () {
             } else {
                 $("#playerCard").append("<p>YOU WIN!</p>");
                 $("#dealerCard").append("<p>DEALER BUSTED!</p>");
-                $('#mesBox').html("Congratulations! You win! <br>Dealer WENT OVER 21!<br>Click 'New Game' to Begin.");
-                playerBalance += parseInt($('#bet').val());
+                $('#mesBox').html("Congratulations! You win!<br>Dealer WENT OVER 21!<br>Click 'New Game' to Begin.");
+                updateBet();
+                playerBalance += betAmount;
+                $('#balance').html("You have : $" + playerBalance);
                 resetGame();
             }
         } else if (dealerScore < 21) {
             if (playerScore > 21) {
                 $("#playerCard").append("<p>YOU BUSTED!</p>");
                 $('#mesBox').html("DRAW! You WENT OVER 21!<br>Click 'New Game' to Begin.");
-                playerBalance -= $('#bet').val();
+                updateBet();
+                playerBalance -= betAmount;
+                $('#balance').html("You have : $" + playerBalance);
                 resetGame();
             } else if (playerScore == 21) {
                 $("#playerCard").append("<p>BLACKJACK!</p>");
-                $('#mesBox').html("Congratulations! You win! You have Blackjack!<br>Click 'New Game' to Begin.");
-                playerBalance += parseInt($('#bet').val());
+                $('#mesBox').html("Congratulations! You win! <br>You have Blackjack!<br>Click 'New Game' to Begin.");
+                updateBet();
+                playerBalance += betAmount;
+                $('#balance').html("You have : $" + playerBalance);
                 resetGame();
             } else {
                 // ask the player to choose
@@ -237,57 +266,80 @@ $(document).ready(function () {
                 resetGame();
             } else {
                 $('#mesBox').html("Sorry! You lose. Dealer have Blackjack!<br>Click 'New Game' to Begin.");
-                playerBalance -= $('#bet').val();
+                updateBet();
+                playerBalance -= betAmount;
+                $('#balance').html("You have : $" + playerBalance);
                 resetGame();
             }
         }
+        if (indexPlayer == 4) {
+            comparecompare(playerScore, dealerScore);
+            resetGame();
+        }
+
+
     });
 
-    
+    function getNewCardValue() {
+        newCardValue = getCardValue(playerHand[(indexPlayer + 1)].value);
+        indexPlayer++;
+    }
+
     $("#hitButton").click(function () {
         dealCard(playerHand, "playerCard");
-        indexPlayer++;
-        playerScore = getTotal(playerScore, playerHand[indexPlayer + 1].value);
+        getNewCardValue();
+        playerScore = getTotal(playerScore, newCardValue);
         if (playerScore >= 21) {
             compare(playerScore, dealerScore);
             $('#balance').html("You have : $" + playerBalance);
-        } 
-        $('#mesBox').html("You have " + playerScore + ". Hit or Stand?");
+        } else {
+            $('#mesBox').html("You have " + playerScore + ". Hit or Stand?");
+        }
+        $('#balance').html("You have : $" + playerBalance);
     });
 
     $("#standButton").click(function () {
         $("#hitButton").prop("disabled", true);
         $("#standButton").prop("disabled", true);
-        $("#dealerCard .card").last().removeClass("hidden");
+        $("#dealerCard.card").last().removeClass("hidden");
         dealersTurn();
 
     })
 
-    $("#cashOutButton").click(function () {
-        $("#newGameButton").prop("disabled", false);
-        $("#hitButton").prop("disabled", true);
-        $("#standButton").prop("disabled", true);
-        $("#cashOutButton").prop("disabled", true);
-        alert("You have cashed out $" + playerBalance + ". Thanks for playing!");
+        // Cash Out Button Event Listener
+    $('#cashOutButton').on('click', function() {
+        $('#cashOutTexts').text("You have cashed out $" + playerBalance + ". Thanks for playing!");
+        $('#cashOutTexts').css('display', 'block');
+        $('#cashOutButton').prop('disabled', true);
+        $('#hitButton').prop('disabled', true);
+        $('#standButton').prop('disabled', true);
+        $('#newGameButton').prop('disabled', false);
+    });
         // Reset the player's money to zero
-        playerBalance = 100;
+        playerBalance = 0;
         $('#balance').html("You have : $" + playerBalance);
+    // New Game Button Event Listener
+    $('#newGameButton').on('click', function() {
+        $('#cashOutTexts').css('display', 'none');
+        $('#cashOutButton').prop('disabled', false);
+        $('#newGameButton').prop('disabled', true);
     })
 
 
     function dealersTurn() {
-        $('#dealerCard .card').removeClass('hidden');
-        dealerScore = getTotal(dealerHand); // Adjusted to get the total score of the dealer
-        while (dealerScore < 17) {
-            dealCard(dealerHand, "dealerCard");
-            dealerScore = getTotal(dealerHand); // Update dealer score after each new card
+        while (dealerScore <= 16 && indexDealer < 4) {
+            dealCardToDealer(indexDealer);
+            indexDealer++;
         }
+
         if (dealerScore > 21) {
-            playerBalance += betAmount;
+            $('#mesBox').html("Congratulations! You win! <br>Dealer WENT OVER 21!<br>Click 'New Game' to Begin.");
+            playerBalance += parseInt($('#bet').val());
         } else {
             compare(playerScore, dealerScore);
         }
         $('#balance').html("You have : $" + playerBalance);
+        resetGame();
     }
 
 
@@ -308,11 +360,10 @@ $(document).ready(function () {
             }
         }
         dealerScore += newCardValue;
-        console.log(dealerScore);
+
         $('#balance').html("You have : $" + playerBalance);
         resetGame();
     }
-    $('#balance').html("You have : $" + playerBalance);
 });
 
 // problems
