@@ -226,59 +226,72 @@ $(document).ready(function () {
         playerScore = getTotal(playerHand[0].value, playerHand[1].value);
 
         // compare the first 2 cards value
-        updateBet();
-        if (dealerScore > 21) {
-            if (playerScore > 21) {
-                $("#playerCard").append("<p>YOU BUSTED!</p>");
-                $("#dealerCard").append("<p>DEALER BUSTED!</p>");
-                $('#mesBox').html("DRAW! You and dealer both WENT OVER 21!<br>Click 'New Game' to Begin.");
-                resetGame();
-            } else {
-                $("#playerCard").append("<p>YOU WIN!</p>");
-                $("#dealerCard").append("<p>DEALER BUSTED!</p>");
-                $('#mesBox').html("Congratulations! You win!<br>Dealer WENT OVER 21!<br>Click 'New Game' to Begin.");
-                updateBet();
-                playerBalance += betAmount;
-                $('#balance').html("You have : $" + playerBalance);
-                resetGame();
-            }
-        } else if (dealerScore < 21) {
-            if (playerScore > 21) {
-                $("#playerCard").append("<p>YOU BUSTED!</p>");
-                $('#mesBox').html("DRAW! You WENT OVER 21!<br>Click 'New Game' to Begin.");
-                updateBet();
-                playerBalance -= betAmount;
-                $('#balance').html("You have : $" + playerBalance);
-                resetGame();
-            } else if (playerScore == 21) {
-                $("#playerCard").append("<p>BLACKJACK!</p>");
-                $('#mesBox').html("Congratulations! You win! <br>You have Blackjack!<br>Click 'New Game' to Begin.");
-                updateBet();
-                playerBalance += betAmount;
-                $('#balance').html("You have : $" + playerBalance);
-                resetGame();
-            } else {
-                // ask the player to choose
-                $('#mesBox').html("You have " + playerScore + ". Hit or Stand?");
-            }
+        if (dealerScore < 21 && playerScore < 21) {
+            // ask the player to choose
+            $('#mesBox').html("You have " + playerScore + ". Hit or Stand?");
         } else {
-            if (playerScore == 21) {
-                $("#playerCard").append("<p>DRAW!</p>");
-                $("#dealerCard").append("<p>DRAW!</p>");
-                $('#mesBox').html("DRAW! You and dealer both have Blackjack!<br>Click 'New Game' to Begin.");
-                resetGame();
-            } else {
-                $('#mesBox').html("Sorry! You lose. Dealer have Blackjack!<br>Click 'New Game' to Begin.");
-                $("#dealerCard").append("<p>BLACKJACK!</p>");
-                $("#dealerCard .card").first().removeClass("hidden");
-                updateBet();
-                playerBalance -= betAmount;
-                $('#balance').html("You have : $" + playerBalance);
-                resetGame();
-            }
+            compare(playerScore, dealerScore);
+            resetGame();
         }
+        // if (dealerScore > 21) {
+        //     if (playerScore > 21) {
+        //         $("#playerCard").append("<p>YOU BUSTED!</p>");
+        //         $("#dealerCard").append("<p>DEALER BUSTED!</p>");
+        //         $('#mesBox').html("DRAW! You and dealer both WENT OVER 21!<br>Click 'New Game' to Begin.");
+        //         resetGame();
+        //     } else {
+        //         $("#playerCard").append("<p>YOU WIN!</p>");
+        //         $("#dealerCard").append("<p>DEALER BUSTED!</p>");
+        //         $('#mesBox').html("Congratulations! You win!<br>Dealer WENT OVER 21!<br>Click 'New Game' to Begin.");
+        //         $("#dealerCard .card").first().removeClass("hidden");
+        //         updateBet();
+        //         playerBalance += betAmount;
+        //         $('#balance').html("You have : $" + playerBalance);
+        //         resetGame();
+        //     }
+        // } else if (dealerScore < 21) {
+        //     if (playerScore > 21) {
+        //         $("#playerCard").append("<p>YOU BUSTED!</p>");
+        //         $('#mesBox').html("DRAW! You WENT OVER 21!<br>Click 'New Game' to Begin.");
+        //         $("#dealerCard .card").first().removeClass("hidden");
+        //         updateBet();
+        //         playerBalance -= betAmount;
+        //         $('#balance').html("You have : $" + playerBalance);
+        //         resetGame();
+        //     } else if (playerScore == 21) {
+        //         $("#playerCard").append("<p>BLACKJACK!</p>");
+        //         $('#mesBox').html("Congratulations! You win! <br>You have Blackjack!<br>Click 'New Game' to Begin.");
+        //         $("#dealerCard .card").first().removeClass("hidden");
+        //         resetGame();
+        //         updateBet();
+        //         playerBalance += betAmount;
+        //         $('#balance').html("You have : $" + playerBalance);
+
+        //     } else {
+        //         // ask the player to choose
+        //         $('#mesBox').html("You have " + playerScore + ". Hit or Stand?");
+        //     }
+        // } else {
+        //     if (playerScore == 21) {
+        //         $("#playerCard").append("<p>DRAW!</p>");
+        //         $("#dealerCard").append("<p>DRAW!</p>");
+        //         $('#mesBox').html("DRAW! You and dealer both have Blackjack!<br>Click 'New Game' to Begin.");
+        //         $("#dealerCard .card").first().removeClass("hidden");
+        //         resetGame();
+        //     } else {
+        //         $('#mesBox').html("Sorry! You lose. Dealer have Blackjack!<br>Click 'New Game' to Begin.");
+        //         $("#dealerCard").append("<p>BLACKJACK!</p>");
+        //         $("#dealerCard .card").first().removeClass("hidden");
+        //         resetGame();
+        //         updateBet();
+        //         playerBalance -= betAmount;
+        //         $('#balance').html("You have : $" + playerBalance);
+
+        //     }
+        // }
+
         if (indexPlayer == 4) {
-            comparecompare(playerScore, dealerScore);
+            compare(playerScore, dealerScore);
             resetGame();
         }
 
