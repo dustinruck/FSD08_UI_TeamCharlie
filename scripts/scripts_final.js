@@ -27,8 +27,6 @@ document.getElementById('verifyButton').addEventListener('click', function () {
 });
 
 
-
-
 // functions
 
 
