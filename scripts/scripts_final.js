@@ -306,11 +306,15 @@ function dealCardToDealer(indexDealer) {
     $('#balance').text(playerBalance);
 }
 
+/**
+ * resetgame when one round is finished
+ */
 function resetGame() {
     $("#newGameButton").prop("disabled", false);
     $("#hitButton").prop("disabled", true);
     $("#standButton").prop("disabled", true);
     $('#bet').prop('disabled', false);
+    $('#bet').val("10");
 }
 
 /**
@@ -347,9 +351,11 @@ $(document).ready(function () {
     document.getElementById("bet").addEventListener("input", function () {
         betAmount = parseInt(document.getElementById("bet").value);
         playerBalance = parseInt($('#balance').text());
-        if (betAmount < playerBalance) {
+        if (betAmount > playerBalance) {
             alert("You don't have enough money, please change your bet!");
             $('#bet').val("10");
+        } else if (betAmount <= 0 || document.getElementById("bet").trim() === "") {
+            alert("Input invalid, please change your bet!");
         }
     });
 
@@ -368,7 +374,6 @@ $(document).ready(function () {
         shuffleDeck();
         dealerHand = []; // clear the cards in hand
         playerHand = [];
-        $('#bet').val("10"); // reset the bet to 10
         indexDealer = 1;
         indexPlayer = 1;
         $('#mesBox').html("Welcome to Blackjack!<br>Choose your bet and Click 'New Game' to Begin."); // reset the message box
@@ -406,7 +411,7 @@ $(document).ready(function () {
         }
 
         if (playerBalance <= 0) {
-            alert("You've run out of money!!! See you next time!!");
+            alert("You've run out of money!!! Game reloaded soon......");
             endGame();
         }
 
@@ -438,7 +443,7 @@ $(document).ready(function () {
 
     // event listener for cashoutButton
     $('#cashOutButton').on('click', function () {
-        $('#cashOutTexts').text("You have cashed out $" + playerBalance + ". Thanks for playing!");
+        $('#cashOutTexts').text("You have cashed out $" + playerBalance + ". Game reloaded soon......");
         $('#cashOutTexts').css('display', 'block');
         endGame();
     });

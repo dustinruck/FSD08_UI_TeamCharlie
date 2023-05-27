@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Blackjack</title>
-    <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
+
 </head>
 
 <body>
@@ -29,17 +30,18 @@
         <div id="rulesText">
             <ul>
                 <li>Each person has 2 cards when new game starts and can have maximum 5 cards</li>
-                <li>Player has $100 to get start, can enter and change the bet during the game</li>
+                <li>Player has $100 to get start and needs set the bet before new game started</li>
                 <li>1 corresponds to A, an ace which has a value of either 1 or 11, 2 through 10 correspond to those
                     cards,
                     11 through 13 correspond to Jack, Queen, and King, which have a value of 10</li>
-                <li>Player loss the bet when he fails</li>
-                <li>Press "cash out" to quit the game at any time</li>
+                <li>Player loses the bet when he lost, gains the bet when he win, and receives no additional payout when
+                    the game ends in a draw</li>
+                <li>Press "cash out" to quit and reload the game at any time</li>
             </ul>
         </div>
 
         <div>
-            <p id="cashOutTexts" style="display:none;">You have cashed out.Thanks for playing!</p>
+            <p id="cashOutTexts" style="display:none;"></p>
             <!-- Set display to none initially -->
         </div>
 
@@ -77,11 +79,7 @@
                 <article>
                     <div class="bet-container">
                         <div>Bet: </div>
-                        <select id="bet">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                        </select>
+                        <input type="number" id="bet" value="10">
                     </div>
                 </article>
             </section>
