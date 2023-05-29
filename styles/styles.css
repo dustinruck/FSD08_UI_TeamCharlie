@@ -9,7 +9,7 @@ body {
     justify-content: center;
 }
 
-/* .modal {
+.modal {
     display: block;
     position: fixed;
     z-index: 1;
@@ -28,15 +28,8 @@ body {
     border: 1px solid #888;
     width: 80%;
     text-align: center;
-} */
-
-#ageVerificationModal {
-    display: block;
 }
 
-#mainContent {
-    display: none;
-}
 
 .header {
     display: flex;
