@@ -459,5 +459,6 @@ $(document).ready(function () {
 
 // problems
 // Ace 1 or 11 logic not always working
+// Dealer's hidden card unicode suits are still showing when they should be hidden
 
 

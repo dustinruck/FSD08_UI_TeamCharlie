@@ -91,7 +91,7 @@ function displayCard(card, containerId) {
 function getCardValue(card) {
     let cardValue = 0;
     if (card == "A") {
-        cardValue = 1;
+        cardValue = 11;  // Default to 11 for Aces
     } else if (card == "K" || card == "Q" || card == "J") {
         cardValue = 10;
     } else {
@@ -147,16 +147,16 @@ function resultAlert(situation) {
     switch (situation) {
         case 1:
             $('#mesBox').html("DRAW! You and dealer both have Blackjack!<br>Choose your bet and click 'New Game' to Begin.");
-            $('#playerCard').append("<br>BLACKJACk!");
-            $('#dealerCard').append("<br>BLACKJACk!");
+            $('#playerCard').append("<br>BLACKJACK!");
+            $('#dealerCard').append("<br>BLACKJACK!");
             break;
         case 2:
             $('#mesBox').html("Congratulations! You win!<br>You have Blackjack!<br>Choose your bet and click 'New Game' to Begin.");
-            $('#playerCard').append("<br>BLACKJACk!");
+            $('#playerCard').append("<br>BLACKJACK!");
             $('#dealerCard').append("<br>LOST!");
             break;
         case 3:
-            $('#mesBox').html("Sorry! You lose. Dealer have Blackjack!<br>Choose your bet and click 'New Game' to Begin.");
+            $('#mesBox').html("Sorry! You lose. Dealer has Blackjack!<br>Choose your bet and click 'New Game' to Begin.");
             $('#playerCard').append("<br>LOST!");
             $('#dealerCard').append("<br>BLACKJACk!");
             break;
