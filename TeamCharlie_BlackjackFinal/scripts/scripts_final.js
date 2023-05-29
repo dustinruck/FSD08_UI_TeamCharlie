@@ -3,6 +3,12 @@ Xiaoxing Pan #2339295
 Dustin Ruck #0234348 */
 
 
+// problems to fix
+// Ace 1 or 11 logic not always working
+// Dealer's hidden card unicode suits are still showing when they should be hidden
+
+
+
 // js for the blackjack.html file
 class Card {
     constructor(value, suit) {
