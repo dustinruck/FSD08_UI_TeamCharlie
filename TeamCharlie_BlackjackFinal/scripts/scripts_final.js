@@ -1,3 +1,8 @@
+/* Hong Bo Li #2298279
+Xiaoxing Pan #2339295
+Dustin Ruck #0234348 */
+
+
 // js for the blackjack.html file
 class Card {
     constructor(value, suit) {
