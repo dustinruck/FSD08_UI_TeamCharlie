@@ -1,3 +1,8 @@
+/* Hong Bo Li #2298279
+Xiaoxing Pan #2339295
+Dustin Ruck #0234348 */
+
+
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Open+Sans:wght@300&display=swap');
 
 body {
@@ -9,7 +14,7 @@ body {
     justify-content: center;
 }
 
-.modal {
+/* .modal {
     display: block;
     position: fixed;
     z-index: 1;
@@ -28,8 +33,15 @@ body {
     border: 1px solid #888;
     width: 80%;
     text-align: center;
+} */
+
+#ageVerificationModal {
+    display: block;
 }
 
+#mainContent {
+    display: none;
+}
 
 .header {
     display: flex;
